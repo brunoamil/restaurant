@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Food } from "../../Food";
 
 import { Header } from "../../Header";
+import { ModalAddFood } from "../../ModalAddFood";
 import api from "../../services/api";
 import { FoodsContainer } from "./styles";
 
@@ -34,6 +35,17 @@ export const Dashboard = () => {
     }
   };
 
+  const handleAddFood = async () => {
+    try {
+      const response = await api.post("/foods", {
+        ...foods,
+        available: true,
+      });
+      setFoods([...foods, response.data]);
+    } catch {
+
+    }
+  }
   const handleDeleteFood = async (id: number) => {
     console.log("id delete", id);
     try {
@@ -57,6 +69,7 @@ export const Dashboard = () => {
   return (
     <>
       <Header onOpenModal={toggleModal} />
+      <ModalAddFood isOpen={openModal}  setIsOpenModal={toggleModal} addFood={handleAddFood} />
       <FoodsContainer>
       {foods &&
         foods.map((food: foodProps) => {
