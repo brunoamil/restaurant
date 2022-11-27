@@ -14,10 +14,10 @@ interface foodDetalhes {
 
 interface foodProps {
     food: foodDetalhes;
-    //handleEditFood?: (food: foodDetalhes) => void;
+    handleEditFood: (food: foodDetalhes) => void;
     handleDelete: (idFood: number) => void;
 }
-export const Food = ({ food, handleDelete}:foodProps) => {
+export const Food = ({ food, handleDelete, handleEditFood}:foodProps) => {
     const [available, setAvailable] = useState(false);
 
     const toggleAvailable = async () => {
@@ -27,7 +27,7 @@ export const Food = ({ food, handleDelete}:foodProps) => {
         setAvailable(!available);
     }
     const setEditingFood = () => {
-        //handleEditFood(food);
+        handleEditFood(food);
     }
     return (
         <Container>
